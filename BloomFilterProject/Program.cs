@@ -10,6 +10,8 @@ namespace BloomFilterProject
     {
         static void Main(string[] args)
         {
+            var filter = new BloomFilter(1000, 4);
+            filter.AddToSet(10);
         }
     }
 }
