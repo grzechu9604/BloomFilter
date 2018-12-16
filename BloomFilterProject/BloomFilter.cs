@@ -1,9 +1,5 @@
-﻿using BloomFilterProject.Exceptions;
-using BloomFilterProject.HashFunctions;
-using System;
-using System.Collections.Generic;
+﻿using BloomFilterProject.HashFunctions;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BloomFilterProject
@@ -23,7 +19,7 @@ namespace BloomFilterProject
             K = k;
             Range = range;
 
-            _filterArray = new bool[K];
+            _filterArray = new bool[Range];
             _functionsArray = new HashFunction[K];
             InitializeFunctionsArray();
         }
@@ -51,23 +47,7 @@ namespace BloomFilterProject
 
         public bool Contains(int value)
         {
-            try
-            { 
-                Parallel.For(0, K, i =>
-                {
-                    long index = CalculateFilterArrayIndex(value, i);
-                    if (!_filterArray[index])
-                    {
-                        throw new ValueNotInSetException();
-                    }
-                });
-            }
-            catch (ValueNotInSetException)
-            {
-                return false;
-            }
-
-            return true;
+            return _functionsArray.ToList().TrueForAll(function => _filterArray[function.Calculate(value)]);
         }
     }
 }

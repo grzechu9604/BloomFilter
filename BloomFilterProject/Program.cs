@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BloomFilterProject
 {
@@ -15,7 +12,7 @@ namespace BloomFilterProject
             double factor = 10;
             int size = (int)Math.Round(factor * n);
 
-            int k = 1;
+            int k = 10;
 
             Random random = new Random(0);
 
@@ -57,10 +54,10 @@ namespace BloomFilterProject
             }
 
 
-            Console.WriteLine("TP = " + string.Format("%6d", TP) + "\tTPR = " + string.Format("%1.4f", (double)TP / (double)n));
-            Console.WriteLine("TN = " + string.Format("%6d", TN) + "\tTNR = " + string.Format("%1.4f", (double)TN / (double)(range - n)));
-            Console.WriteLine("FN = " + string.Format("%6d", FN) + "\tFNR = " + string.Format("%1.4f", (double)FN / (double)(n)));
-            Console.WriteLine("FP = " + string.Format("%6d", FP) + "\tFPR = " + string.Format("%1.4f", (double)FP / (double)(range - n)));
+            Console.WriteLine("TP = " + string.Format("{0:d6}", TP) + "\tTPR = " + string.Format("{0:P4}", (decimal)TP / (decimal)n));
+            Console.WriteLine("TN = " + string.Format("{0:d6}", TN) + "\tTNR = " + string.Format("{0:P4}", (decimal)TN / (decimal)(range - n)));
+            Console.WriteLine("FN = " + string.Format("{0:d6}", FN) + "\tFNR = " + string.Format("{0:P4}", (decimal)FN / (decimal)(n)));
+            Console.WriteLine("FP = " + string.Format("{0:d6}", FP) + "\tFPR = " + string.Format("{0:P4}", (decimal)FP / (decimal)(range - n)));
         }
     }
 }
