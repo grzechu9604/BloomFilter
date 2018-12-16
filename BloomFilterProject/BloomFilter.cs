@@ -8,18 +8,16 @@ namespace BloomFilterProject
     {
         public readonly int Size;
         public readonly int K;
-        public readonly int Range;
 
         private readonly bool[] _filterArray;
         private readonly HashFunction[] _functionsArray;
 
-        public BloomFilter(int size, int k, int range)
+        public BloomFilter(int size, int k)
         {
             Size = size;
             K = k;
-            Range = range;
 
-            _filterArray = new bool[Range];
+            _filterArray = new bool[Size];
             _functionsArray = new HashFunction[K];
             InitializeFunctionsArray();
         }
@@ -28,7 +26,7 @@ namespace BloomFilterProject
         {
             for (long i = 0; i < K; i++)
             {
-                _functionsArray[i] = HashFunctionGenerator.Generate(Range);
+                _functionsArray[i] = HashFunctionGenerator.Generate(Size);
             }
         }
 
