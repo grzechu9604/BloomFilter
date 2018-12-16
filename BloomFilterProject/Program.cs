@@ -12,52 +12,53 @@ namespace BloomFilterProject
             double factor = 10;
             int size = (int)Math.Round(factor * n);
 
-            int k = 10;
-
-            Random random = new Random(0);
-
-            BloomFilter bf = new BloomFilter(size, k, range);
-
-            HashSet<long> set = new HashSet<long>();
-
-            for (int i = 0; i < n; i++)
+            for (int k = 0; k < 20; k++)
             {
-                int value = random.Next(range);
-                set.Add(value);
-                bf.Add(value);
+                Random random = new Random(0);
+
+                BloomFilter bf = new BloomFilter(size, k, range);
+
+                HashSet<long> set = new HashSet<long>();
+
+                for (int i = 0; i < n; i++)
+                {
+                    int value = random.Next(range);
+                    set.Add(value);
+                    bf.Add(value);
+                }
+
+                int TP = 0, FP = 0, TN = 0, FN = 0;
+
+                for (int i = 0; i < range; i++)
+                {
+                    int key = i; //random.Next(range);
+                    bool containsBF = bf.Contains(key);
+                    bool containsHS = set.Contains(key);
+
+                    if (containsBF && containsHS)
+                    {
+                        TP++;
+                    }
+                    else if (!containsBF && !containsHS)
+                    {
+                        TN++;
+                    }
+                    else if (!containsBF && containsHS)
+                    {
+                        FN++;
+                    }
+                    else if (containsBF && !containsHS)
+                    {
+                        FP++;
+                    }
+                }
+
+                Console.WriteLine($"K = {k}");
+                Console.WriteLine("TP = " + string.Format("{0:d6}", TP) + "\tTPR = " + string.Format("{0:P4}", (decimal)TP / (decimal)n));
+                Console.WriteLine("TN = " + string.Format("{0:d6}", TN) + "\tTNR = " + string.Format("{0:P4}", (decimal)TN / (decimal)(range - n)));
+                Console.WriteLine("FN = " + string.Format("{0:d6}", FN) + "\tFNR = " + string.Format("{0:P4}", (decimal)FN / (decimal)(n)));
+                Console.WriteLine("FP = " + string.Format("{0:d6}", FP) + "\tFPR = " + string.Format("{0:P4}", (decimal)FP / (decimal)(range - n)));
             }
-
-            int TP = 0, FP = 0, TN = 0, FN = 0;
-
-            for (int i = 0; i < range; i++)
-            {
-                int key = i; //random.Next(range);
-                bool containsBF = bf.Contains(key);
-                bool containsHS = set.Contains(key);
-
-                if (containsBF && containsHS)
-                {
-                    TP++;
-                }
-                else if (!containsBF && !containsHS)
-                {
-                    TN++;
-                }
-                else if (!containsBF && containsHS)
-                {
-                    FN++;
-                }
-                else if (containsBF && !containsHS)
-                {
-                    FP++;
-                }
-            }
-
-
-            Console.WriteLine("TP = " + string.Format("{0:d6}", TP) + "\tTPR = " + string.Format("{0:P4}", (decimal)TP / (decimal)n));
-            Console.WriteLine("TN = " + string.Format("{0:d6}", TN) + "\tTNR = " + string.Format("{0:P4}", (decimal)TN / (decimal)(range - n)));
-            Console.WriteLine("FN = " + string.Format("{0:d6}", FN) + "\tFNR = " + string.Format("{0:P4}", (decimal)FN / (decimal)(n)));
-            Console.WriteLine("FP = " + string.Format("{0:d6}", FP) + "\tFPR = " + string.Format("{0:P4}", (decimal)FP / (decimal)(range - n)));
         }
     }
 }
