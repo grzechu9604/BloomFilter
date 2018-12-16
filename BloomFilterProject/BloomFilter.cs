@@ -39,7 +39,7 @@ namespace BloomFilterProject
             return (coefficients.Item1 * value + coefficients.Item2) % Size;
         }
 
-        public void AddToSet(long value)
+        public void Add(long value)
         {
             Parallel.For(0, K, i => {
                 var index = CalculateFilterArrayIndex(value, i);
@@ -47,7 +47,7 @@ namespace BloomFilterProject
             });
         }
 
-        public bool IsInSet(long value)
+        public bool Contains(long value)
         {
             try
             { 
