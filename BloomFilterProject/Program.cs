@@ -19,7 +19,7 @@ namespace BloomFilterProject
 
             Random random = new Random(0);
 
-            BloomFilter bf = new BloomFilter(size, k);
+            BloomFilter bf = new BloomFilter(size, k, range);
 
             HashSet<long> set = new HashSet<long>();
 

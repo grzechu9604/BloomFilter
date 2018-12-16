@@ -44,7 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BloomFilter.cs" />
+    <Compile Include="Exceptions\RangeTooBigException.cs" />
     <Compile Include="Exceptions\ValueNotInSetException.cs" />
+    <Compile Include="HashFunctions\HashFunction.cs" />
+    <Compile Include="HashFunctions\HashFunctionGenerator.cs" />
     <Compile Include="PrimeNumberGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

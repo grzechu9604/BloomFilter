@@ -1,4 +1,5 @@
 ﻿using BloomFilterProject.Exceptions;
+using BloomFilterProject.HashFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,21 @@ namespace BloomFilterProject
 {
     class BloomFilter
     {
-        public readonly long Size;
-        public readonly long K;
+        public readonly int Size;
+        public readonly int K;
+        public readonly int Range;
 
         private readonly bool[] _filterArray;
-        private readonly Tuple<long, long>[] _functionsArray;
+        private readonly HashFunction[] _functionsArray;
 
-        public BloomFilter(long size, long k)
+        public BloomFilter(int size, int k, int range)
         {
             Size = size;
             K = k;
+            Range = range;
 
             _filterArray = new bool[K];
-            _functionsArray = new Tuple<long, long>[K];
+            _functionsArray = new HashFunction[K];
             InitializeFunctionsArray();
         }
 
@@ -29,17 +32,16 @@ namespace BloomFilterProject
         {
             for (long i = 0; i < K; i++)
             {
-
+                _functionsArray[i] = HashFunctionGenerator.Generate(Range);
             }
         }
 
-        private long CalculateFilterArrayIndex(long value, long functionIndex)
+        private long CalculateFilterArrayIndex(int value, long functionIndex)
         {
-            var coefficients = _functionsArray[functionIndex];
-            return (coefficients.Item1 * value + coefficients.Item2) % Size;
+            return _functionsArray[functionIndex].Calculate(value);
         }
 
-        public void Add(long value)
+        public void Add(int value)
         {
             Parallel.For(0, K, i => {
                 var index = CalculateFilterArrayIndex(value, i);
@@ -47,7 +49,7 @@ namespace BloomFilterProject
             });
         }
 
-        public bool Contains(long value)
+        public bool Contains(int value)
         {
             try
             { 
