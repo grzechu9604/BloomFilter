@@ -7,12 +7,12 @@ namespace BloomFilterProject
     {
         static void Main(string[] args)
         {
-            int n = 10_000;
-            int range = 100_000_000;
+            int n = 1_000;
+            int range = 100_000;
             double factor = 10;
             int size = (int)Math.Round(factor * n);
 
-            for (int k = 0; k < 20; k++)
+            for (int k = 1; k < n; k++)
             {
                 Random random = new Random(0);
 
