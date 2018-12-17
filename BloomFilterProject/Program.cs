@@ -55,10 +55,10 @@ namespace BloomFilterProject
                 double theoreticalFPRatio = BloomFalsePositiveTheoreticalRatioCalculator.Calculate(k, n, size);
                 Console.WriteLine($"K = {k}");
                 Console.WriteLine("Theoretical FP ratio =  " + string.Format("{0:P4}", theoreticalFPRatio));
-                Console.WriteLine("TP = " + string.Format("{0:d6}", TP) + "\tTPR = " + string.Format("{0:P4}", (decimal)TP / (decimal)n));
-                Console.WriteLine("TN = " + string.Format("{0:d6}", TN) + "\tTNR = " + string.Format("{0:P4}", (decimal)TN / (decimal)(range - n)));
-                Console.WriteLine("FN = " + string.Format("{0:d6}", FN) + "\tFNR = " + string.Format("{0:P4}", (decimal)FN / (decimal)(n)));
-                Console.WriteLine("FP = " + string.Format("{0:d6}", FP) + "\tFPR = " + string.Format("{0:P4}", (decimal)FP / (decimal)(range - n)));
+                Console.WriteLine("TP = " + string.Format("{0:d8}", TP) + "\tTPR = " + string.Format("{0:P4}", (decimal)TP / (decimal)n));
+                Console.WriteLine("TN = " + string.Format("{0:d8}", TN) + "\tTNR = " + string.Format("{0:P4}", (decimal)TN / (decimal)(range - n)));
+                Console.WriteLine("FN = " + string.Format("{0:d8}", FN) + "\tFNR = " + string.Format("{0:P4}", (decimal)FN / (decimal)(n)));
+                Console.WriteLine("FP = " + string.Format("{0:d8}", FP) + "\tFPR = " + string.Format("{0:P4}", (decimal)FP / (decimal)(range - n)));
             }
         }
     }
