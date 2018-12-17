@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace BloomFilterProject
 {
     public static class PrimeNumberGenerator
     {
+        private static readonly string _primesListXmlFileName = "PrimesList.xml";
         private static List<long> _primes = new List<long>();
 
         public static long GetFirstGreater(long value)
@@ -43,7 +46,18 @@ namespace BloomFilterProject
                 currentValue++;
             }
 
+            SerializePrimesList();
+
             return greatestPrime;
+        }
+
+        private static void SerializePrimesList()
+        {
+            var serializer = new XmlSerializer(typeof(List<long>));
+            using (StreamWriter sw = new StreamWriter(_primesListXmlFileName))
+            {
+                serializer.Serialize(sw, _primes);
+            }
         }
     }
 }
