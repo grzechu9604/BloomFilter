@@ -1,4 +1,6 @@
 ﻿using BloomFilterProject.HashFunctions;
+using System;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +11,7 @@ namespace BloomFilterProject
         public readonly int Size;
         public readonly int K;
 
-        private readonly bool[] _filterArray;
+        private readonly BitArray _filterArray;
         private readonly HashFunction[] _functionsArray;
 
         public BloomFilter(int size, int k, int range)
@@ -17,7 +19,7 @@ namespace BloomFilterProject
             Size = size;
             K = k;
 
-            _filterArray = new bool[Size];
+            _filterArray = new BitArray(Size);
             _functionsArray = new HashFunction[K];
             InitializeFunctionsArray(range);
         }
@@ -38,14 +40,14 @@ namespace BloomFilterProject
         public void Add(int value)
         {
             Parallel.For(0, K, i => {
-                var index = CalculateFilterArrayIndex(value, i);
+                var index = Convert.ToInt32(CalculateFilterArrayIndex(value, i));
                 _filterArray[index] = true;
             });
         }
 
         public bool Contains(int value)
         {
-            return _functionsArray.ToList().TrueForAll(function => _filterArray[function.Calculate(value)]);
+            return _functionsArray.ToList().TrueForAll(function => _filterArray[Convert.ToInt32(function.Calculate(value))]);
         }
     }
 }

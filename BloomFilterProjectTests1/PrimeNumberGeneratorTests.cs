@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BloomFilterProject;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BloomFilterProject.Tests
 {
@@ -16,6 +17,19 @@ namespace BloomFilterProject.Tests
             Assert.AreEqual(23, PrimeNumberGenerator.GetFirstGreater(22));
             Assert.AreEqual(53, PrimeNumberGenerator.GetFirstGreater(52));
             Assert.AreEqual(29, PrimeNumberGenerator.GetFirstGreater(25));
+        }
+
+        [TestMethod()]
+        public void GenerateFirstGreaterFastTest()
+        {
+            Assert.AreEqual(3, PrimeNumberGenerator.GenerateFirstGreaterFast(2));
+            Assert.AreEqual(5, PrimeNumberGenerator.GenerateFirstGreaterFast(4));
+            Assert.AreEqual(7, PrimeNumberGenerator.GenerateFirstGreaterFast(5));
+            Assert.AreEqual(11, PrimeNumberGenerator.GenerateFirstGreaterFast(8));
+            Assert.AreEqual(7, PrimeNumberGenerator.GenerateFirstGreaterFast(5));
+            Assert.AreEqual(23, PrimeNumberGenerator.GenerateFirstGreaterFast(22));
+            Assert.AreEqual(53, PrimeNumberGenerator.GenerateFirstGreaterFast(52));
+            Assert.AreEqual(29, PrimeNumberGenerator.GenerateFirstGreaterFast(25));
         }
     }
 }

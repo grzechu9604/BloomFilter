@@ -7,8 +7,8 @@ namespace BloomFilterProject
     {
         static void Main(string[] args)
         {
-            int n = 1_000;
-            int range = 100_000;
+            int n = 10_000;
+            int range = 100_000_000;
             double factor = 10;
             int size = (int)Math.Round(factor * n);
 

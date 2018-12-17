@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -49,6 +50,29 @@ namespace BloomFilterProject
             SerializePrimesList();
 
             return greatestPrime;
+        }
+
+        public static long GenerateFirstGreaterFast(long value)
+        {
+            long current = value;
+            bool isPrime = false;
+            
+            while(!isPrime)
+            {
+                current++;
+                isPrime = true;
+                long maxDivisor = Convert.ToInt64(Math.Floor(Math.Sqrt(current)));
+                for (int i = 2; i <= maxDivisor; i++)
+                {
+                    if (current % i == 0)
+                    {
+                        isPrime = false;
+                        break;
+                    }
+                }
+            }
+
+            return current;
         }
 
         private static void SerializePrimesList()
