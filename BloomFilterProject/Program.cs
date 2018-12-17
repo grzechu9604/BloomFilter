@@ -12,11 +12,11 @@ namespace BloomFilterProject
             double factor = 10;
             int size = (int)Math.Round(factor * n);
 
-            for (int k = 1; k < n; k++)
+            for (int k = 1; k < 10; k++)
             {
                 Random random = new Random(0);
 
-                BloomFilter bf = new BloomFilter(size, k);
+                BloomFilter bf = new BloomFilter(size, k, range);
 
                 HashSet<long> set = new HashSet<long>();
 
@@ -52,8 +52,9 @@ namespace BloomFilterProject
                         FP++;
                     }
                 }
-
+                double theoreticalFPRatio = BloomFalsePositiveTheoreticalRatioCalculator.Calculate(k, n, size);
                 Console.WriteLine($"K = {k}");
+                Console.WriteLine("Theoretical FP ratio =  " + string.Format("{0:P4}", theoreticalFPRatio));
                 Console.WriteLine("TP = " + string.Format("{0:d6}", TP) + "\tTPR = " + string.Format("{0:P4}", (decimal)TP / (decimal)n));
                 Console.WriteLine("TN = " + string.Format("{0:d6}", TN) + "\tTNR = " + string.Format("{0:P4}", (decimal)TN / (decimal)(range - n)));
                 Console.WriteLine("FN = " + string.Format("{0:d6}", FN) + "\tFNR = " + string.Format("{0:P4}", (decimal)FN / (decimal)(n)));

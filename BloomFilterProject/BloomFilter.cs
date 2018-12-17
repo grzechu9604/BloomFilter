@@ -12,21 +12,21 @@ namespace BloomFilterProject
         private readonly bool[] _filterArray;
         private readonly HashFunction[] _functionsArray;
 
-        public BloomFilter(int size, int k)
+        public BloomFilter(int size, int k, int range)
         {
             Size = size;
             K = k;
 
             _filterArray = new bool[Size];
             _functionsArray = new HashFunction[K];
-            InitializeFunctionsArray();
+            InitializeFunctionsArray(range);
         }
 
-        private void InitializeFunctionsArray()
+        private void InitializeFunctionsArray(int range)
         {
-            for (long i = 0; i < K; i++)
+            for (int i = 0; i < K; i++)
             {
-                _functionsArray[i] = HashFunctionGenerator.Generate(Size);
+                _functionsArray[i] = HashFunctionGenerator.Generate(Size, range);
             }
         }
 

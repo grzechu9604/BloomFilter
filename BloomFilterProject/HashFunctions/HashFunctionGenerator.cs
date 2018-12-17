@@ -7,7 +7,7 @@ namespace BloomFilterProject.HashFunctions
     {
         private static Random _randomGenerator = new Random(1);
 
-        public static HashFunction Generate(int range)
+        public static HashFunction Generate(int size, int range)
         {
             long longPrime = PrimeNumberGenerator.GetFirstGreater(range);
 
@@ -21,7 +21,7 @@ namespace BloomFilterProject.HashFunctions
             int a = _randomGenerator.Next(1, prime - 1);
             int b = _randomGenerator.Next(0, prime - 1);
 
-            return new HashFunction(prime, range, a, b);
+            return new HashFunction(prime, size, a, b);
         }
     }
 }
