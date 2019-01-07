@@ -9,7 +9,7 @@ namespace BloomFilterProject.HashFunctions
 
         public static HashFunction Generate(int size, int range)
         {
-            long longPrime = PrimeNumberGenerator.GenerateFirstGreaterFast(range);
+            long longPrime = PrimeNumberGenerator.GetFirstGreaterFast(range);
 
             if (longPrime > int.MaxValue)
             {

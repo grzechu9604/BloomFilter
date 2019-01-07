@@ -52,7 +52,22 @@ namespace BloomFilterProject
             return greatestPrime;
         }
 
-        public static long GenerateFirstGreaterFast(long value)
+        public static long GetFirstGreaterFast(long value)
+        {
+            long firstGreater = _primes.FirstOrDefault(prime => prime > value);
+            if (firstGreater > 0)
+            {
+                return firstGreater;
+            }
+            else
+            {
+                firstGreater = GenerateFirstGreaterFast(value);
+                _primes.Add(firstGreater);
+                return firstGreater;
+            }
+        }
+
+        private static long GenerateFirstGreaterFast(long value)
         {
             long current = value;
             bool isPrime = false;
